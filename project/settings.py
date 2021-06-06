@@ -22,9 +22,11 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
 
-
         # Alien settings
         self.alien_scaling = 0.05
+        self.alien_fleet_direction = 1
+        self.alien_fleet_xspeed = 1.0
+        self.alien_fleet_yspeed = 4.0
 
         # Star settings
         self.star_numbers = 150

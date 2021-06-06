@@ -55,8 +55,12 @@ class AlienInvasion:
             self.ship.update()
             self._update_bullets()
             self._update_stars()
+            self._update_aliens()
             self._update_screen()
 
+    ###########################################################################
+    # Events: helper functions and methods
+    ###########################################################################
     def _check_events(self):
         # Tracking keyboard and mouse events.
         for event in pygame.event.get():
@@ -94,6 +98,9 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    ###########################################################################
+    # Bullets: helper functions and methods
+    ###########################################################################
     def _fire_bullets(self):
         if len(self.bullets) < self.settings.bullet_allowed:
             new_bullet = Bullet(self)
@@ -107,6 +114,9 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    ###########################################################################
+    # Aliens: helper functions and methods
+    ###########################################################################
     def _create_fleet(self):
         """Create the fleet of aliens"""
         # Make an alien
@@ -131,7 +141,13 @@ class AlienInvasion:
 
         # Creating first row of element
         for row_number in range(number_aliens_y):
-            for alien_number in range(number_aliens_x):
+            # if row_number%2!=0:
+            #     number_aliens = number_aliens_x-2
+            # else:
+            number_aliens = number_aliens_x
+            for alien_number in range(number_aliens):
+                # if row_number%2!=0 and alien_number%2==0:
+                #     continue
                 self._create_alien(alien_number, row_number)
 
     def _create_alien(self, alien_number, row_number):
@@ -150,36 +166,64 @@ class AlienInvasion:
 
         self.aliens.add(alien)
 
+    def _update_aliens(self):
+        """Change position on detecting edges"""
+        
+        for alien in self.aliens.sprites():
+            # Detect if any alien detects the edge
+            if alien.edge_detect():
+                for alien in self.aliens.sprites():
+                    # Dropping
+                    alien.rect.y += self.settings.alien_fleet_yspeed
+                # Changing direction
+                self.settings.alien_fleet_direction *= -1
+                # breaking loop: even if one alien detects edge all the
+                # parameters for whole fleet is changed
+                break
+        # Updating the whole fleet
+        self.aliens.update()    
+            
+               
+    
+    # def _change_fleet
+    #     self.aliens.update()
+
+    ###########################################################################
+    # Star: helper functions and methods
+    ###########################################################################
     def _create_stars_group(self):
         """Creating stars"""
 
         for number in range(0, self.settings.star_numbers):
             self._create_stars()
-            
+
     def _create_stars(self):
         star = Star(self)
         star.rect.x = randint(0, self.settings.screen_width)
         star.rect.y = randint(0, self.settings.screen_height)
         self.stars.add(star)
-    
+
     def _update_stars(self):
         """Updating bullet location and removing out-of-screen stars"""
         self.stars.update()
+
 
         # Removing bullets that are out of the screen
         for star in self.stars.copy():
             if star.rect.bottom >= self.settings.screen_height:
                 self.stars.remove(star)
                 self._create_stars()
-        
 
+    ###########################################################################
+    # Update: helper functions and methods
+    ###########################################################################
     def _update_screen(self):
         # Redrawing screen with background color
         self.screen.fill(self.settings.bg_color)
-        
+
         # Draw star
         self.stars.draw(self.screen)
-        
+
         # Drawing ship
         self.ship.blitme()
 

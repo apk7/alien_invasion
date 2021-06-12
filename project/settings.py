@@ -14,11 +14,12 @@ class Settings:
         self.ship_height = self.ship_width * \
             (self.screen_width/self.screen_height) * 0.7
         self.ship_speed = 1
+        self.ship_limit = 1
 
         # Bullets settings
         self.bullet_speed = 1.0
-        self.bullet_allowed = 3
-        self.bullet_width = 3
+        self.bullet_allowed = 5
+        self.bullet_width = 70
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
 
@@ -26,10 +27,14 @@ class Settings:
         self.alien_scaling = 0.05
         self.alien_fleet_direction = 1
         self.alien_fleet_xspeed = 1.0
-        self.alien_fleet_yspeed = 4.0
+        self.alien_fleet_yspeed = 0
 
         # Star settings
         self.star_numbers = 150
         self.star_scale = 0.025
         self.star_speed = 2
         
+        # Game stats initial setting
+        self.stat_level = 0
+        self.stat_score = 0
+        self.stat_levelup_yspeed = 5

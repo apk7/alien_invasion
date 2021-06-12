@@ -1,6 +1,6 @@
 import pygame.font
 import sys
-
+import os
 
 class GameStats:
     """Tracking statistics for the game"""
@@ -61,14 +61,6 @@ class GameStats:
 
         # Initial position of alien at top-left corner, storing as an attribute
         # adding space to the left-most alien equal to width of alien image
-        # print(help(self.screen_rect))
         self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.screen_rect.centery - 100
-        # self.rect.centery = 20
         self.screen.blit(self.image, self.rect)
-        
-
-
-# pygame.font.match_font
-# str = "♛" * 5
-# print(str)

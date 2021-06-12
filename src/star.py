@@ -1,6 +1,5 @@
 import pygame
 from pygame.sprite import Sprite
-
 class Star(Sprite):
     """Class for stars in the background"""
 
@@ -29,6 +28,4 @@ class Star(Sprite):
         """Move stars"""
         # Update position of the bullet
         self.rect.y += self.settings.star_speed
-
-        # Update rectangle position
-        # self.rect.y = self.y
+        

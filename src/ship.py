@@ -1,6 +1,4 @@
 import pygame
-# from settings import Settings
-
 class Ship:
     """Class for creating rocket ship"""
     def __init__(self,ai_game) -> None:
@@ -10,7 +8,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # Loading image
-        ship_image = pygame.image.load('images/rocket.bmp')
+        ship_image = pygame.image.load("images/rocket.bmp")
         self.image = pygame.transform.smoothscale(ship_image, 
         (int(ai_game.settings.ship_width), int(ai_game.settings.ship_height))) 
 
